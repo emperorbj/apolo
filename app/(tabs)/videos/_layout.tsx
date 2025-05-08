@@ -18,8 +18,15 @@ export default function VideosLayout() {
           paddingTop: insets.top,
           backgroundColor: 'rgba(255, 255, 255, 0.85)',
           borderTopColor: 'rgba(255, 255, 255, 0.2)',
+          
         },
-        tabBarIndicatorStyle: { backgroundColor: COLORS.primary },
+   
+        tabBarContentContainerStyle: {
+          paddingHorizontal: 3,
+        },
+        tabBarIndicatorStyle: { 
+          backgroundColor: COLORS.primary,
+         },
       }}>
       <TopTabs.Screen name="new" component={NewVideos} options={{ title: 'New' }} />
       <TopTabs.Screen name="old" component={OldVideos} options={{ title: 'Old' }} />

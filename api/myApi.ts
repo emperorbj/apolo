@@ -17,3 +17,8 @@ export const fetchAllVideos = async (page = 1, limit = 6) => {
   const response = await api.get(`/api/videos?page=${page}&limit=${limit}`);
   return response.data;
 };
+
+export const fetchBlogs = async (page=1 ,limit=6,category="")=>{
+  const response = await api.get(`/api/blogs?page=${page}&limit=${limit}&category=${category}`);
+  return response?.data;
+}

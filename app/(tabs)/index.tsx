@@ -21,11 +21,13 @@ import { useState } from "react";
 import Carousel from 'react-native-reanimated-carousel';
 import TopicCard from "@/components/TopicCard";
 import COLORS from "@/constants/constants";
+import { useRouter } from 'expo-router';
 
 
 const { width } = Dimensions.get("window");
 
 export default function Home() {
+  const router = useRouter()
   const [countryCode, setCountryCode] = useState<string | null>(null);
   const [locationError, setLocationError] = useState<string | null>(null);
 
@@ -82,16 +84,10 @@ export default function Home() {
         nestedScrollEnabled={true}
         contentContainerStyle={{ paddingBottom: 20 }}
         style={{ flex: 1 }}>
-        <View style={{
-          flexDirection: "row", alignItems: "center",
-          justifyContent: "space-between", paddingHorizontal: 12
-        }}>
 
-          <View>
-            <Text style={{ color: "#B08968",fontFamily:"myFont", fontSize: 20, marginTop:15, fontWeight: "500" }}>Welcome back, {user?.name.split(" ")[1]}!</Text>
-            <Text style={{ color: "#00FFAB", fontSize: 15, fontWeight: "500" }}></Text>
-          </View>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          
+<View style={{ flexDirection: "row", alignItems: "center",
+  justifyContent: "space-between", paddingHorizontal: 12 }}>
           {countryCode && (
             <Image
               source={{ uri: `https://flagcdn.com/w40/${countryCode}.png` }}
@@ -103,12 +99,24 @@ export default function Home() {
 
             />
           </View>
+
+        <View style={{
+          flexDirection: "row", alignItems: "center",
+          justifyContent: "space-between", paddingHorizontal: 12
+        }}>
+
+
+          <View>
+            <Text style={{ color: "#B08968",fontFamily:"myFont",
+               fontSize: 20, marginTop:15, fontWeight: "500" }}>Welcome back, {user?.name.split(" ")[1]}!</Text>
+            <Text style={{ color: "#00FFAB", fontSize: 15, fontWeight: "500" }}></Text>
+          </View>
           
         </View>
         <View  style={styles.headerContainer}>
           <View></View>
           <Pressable style={{backgroundColor: COLORS.primary ,padding:5, alignItems:"center",borderRadius:50}}>
-            <Ionicons name="search-outline" size={30} color={"white"} />
+            <Ionicons name="search-outline" size={25} color={"white"} />
           </Pressable>
         </View>
 
@@ -124,7 +132,7 @@ export default function Home() {
     height={200}
     autoPlay
     data={imageSources}
-    scrollAnimationDuration={4000}
+    scrollAnimationDuration={3000}
     renderItem={({ item }) => (
       <Image
         source={item}
@@ -144,44 +152,54 @@ export default function Home() {
           </View>
           {/* RECENT VIDEOS DISPLAY */}
 
+        
+            <TopicCard 
+            title="Textual Criticism"
+            image="textual.jpg"
+            text="criticism on the text of the Bible"
+            color="#6C757D"
+            />
 
           <TopicCard 
-          title="Textual Criticism"
-          image="textual.jpg"
-          text="criticism on the text of the Bible"
-          color="#6C757D"
-          />
+            title="Historical Evidence"
+            image="history.jpg"
+            text="historical evidence for the Bible"
+            color="#B08968"
+            />
+            
+            <TopicCard 
+            title="Science and Faith"
+            image="science.jpg"
+            text="science and the Bible"
+            color="#3A86FF"
+            />
 
-        <TopicCard 
-          title="Historical Evidence"
-          image="history.jpg"
-          text="historical evidence for the Bible"
-          color="#B08968"
-          />
-          
           <TopicCard 
-          title="Science and Faith"
-          image="science.jpg"
-          text="science and the Bible"
-          color="#3A86FF"
-          />
+            title="Philosophy of Evil"
+            image="evil.jpg"
+            text="philosophical arguments for evil"
+            color="#636B2F"
+            
+            />
 
-        <TopicCard 
-          title="Philosophy of Evil"
-          image="evil.jpg"
-          text="philosophical arguments for evil"
-          color="#7209B7"
-          
-          />
-
+<View style={styles.recentViewSection}>
+          <Text style={styles.recentText}>Recent streams</Text>
+          <TouchableOpacity style={styles.viewAll} onPress={() => router.push({ pathname: '/videos/all',})}>
+            <Text style={{color:COLORS.primary}}>View All</Text>
+          </TouchableOpacity>
+        </View>
+      
           <FlatList
             data={oldVideos}
             keyExtractor={(item) => item._id}
-            contentContainerStyle={{ gap: 8 }}
+            contentContainerStyle={{ gap: 8, paddingBottom: 50 }}
             showsVerticalScrollIndicator={false}
-            numColumns={2}
+            horizontal
+            showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.videoCardVertical}>
+              <TouchableOpacity style={styles.videoCardVertical} onPress={()=>router
+.push({ pathname: '/video-player', params: { url: item.youtubeUrl } })}>
+              
                 <Image
                   style={styles.thumbnailVertical}
                   source={{ uri: item?.thumbnailUrl }}
@@ -234,6 +252,17 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginRight: 10,
   },
+  viewAll:{
+    flexDirection:'row',
+    gap:5,
+    borderRadius:50,
+    padding:4,
+    backgroundColor:"rgba(255,255,255,0.4)",
+    borderWidth:1,
+    borderColor:COLORS.primary,
+    alignItems:'center',
+    justifyContent:'center'
+  },
   videoContainer: {
     marginTop: 10,
     paddingHorizontal: 12
@@ -271,7 +300,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10
+    marginVertical: 10,
+    padding:10
   },
   recentText: {
     fontSize: 20,
@@ -289,7 +319,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#1B1212",
     marginBottom: 8,
     marginHorizontal: 3,
-    paddingBottom: 6
+    paddingBottom: 6,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   thumbnailVertical: {
     width: "100%",
