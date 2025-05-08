@@ -22,3 +22,8 @@ export const fetchBlogs = async (page=1 ,limit=6,category="")=>{
   const response = await api.get(`/api/blogs?page=${page}&limit=${limit}&category=${category}`);
   return response?.data;
 }
+
+export const getSingleBlog = async (id:string)=>{
+  const response = await api.get(`/api/blogs/${id}`)
+  return response?.data;
+}

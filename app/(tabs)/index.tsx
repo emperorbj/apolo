@@ -158,6 +158,7 @@ export default function Home() {
             image="textual.jpg"
             text="criticism on the text of the Bible"
             color="#6C757D"
+            routing="textual"
             />
 
           <TopicCard 
@@ -165,6 +166,7 @@ export default function Home() {
             image="history.jpg"
             text="historical evidence for the Bible"
             color="#B08968"
+             routing="history"
             />
             
             <TopicCard 
@@ -172,6 +174,7 @@ export default function Home() {
             image="science.jpg"
             text="science and the Bible"
             color="#3A86FF"
+             routing="science"
             />
 
           <TopicCard 
@@ -179,6 +182,7 @@ export default function Home() {
             image="evil.jpg"
             text="philosophical arguments for evil"
             color="#636B2F"
+             routing="evil"
             
             />
 

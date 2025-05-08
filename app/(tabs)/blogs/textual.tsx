@@ -45,7 +45,8 @@ const Textual = () => {
         contentContainerStyle={{ padding: 16 }}
         
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.topicCardContainer}>
+          <TouchableOpacity style={styles.topicCardContainer}
+          onPress={() => router.push(`/blog/${item._id}`)}>
             <View style={styles.topicCardImageContainer}>
               <Image source={{ uri: item?.image }} style={styles.topicCardImage} contentFit='cover' />
             </View>

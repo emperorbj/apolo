@@ -1,6 +1,7 @@
 import { View, Text,StyleSheet, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Image } from 'expo-image'
+import { useRouter } from 'expo-router';
 
 const imageMap: Record<string, any> = {
     'textual.jpg': require('@/assets/textual.jpg'),
@@ -9,9 +10,11 @@ const imageMap: Record<string, any> = {
     'evil.jpg': require('@/assets/evil.jpg'),
   };
 
-const TopicCard = ({image,title,text,color}:any) => {
+const TopicCard = ({image,title,text,color,routing}:any) => {
+
+  const router = useRouter()
   return (
-    <TouchableOpacity style={styles.topicCardContainer}>
+    <TouchableOpacity style={styles.topicCardContainer} onPress={()=>router.push({pathname:`(tabs)/blogs/${routing}`})}>
         <View style={styles.topicCardImageContainer}>
             <Image source={imageMap[image]} style={styles.topicCardImage} contentFit='cover'/>
         </View>
