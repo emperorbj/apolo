@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
+import { View, Text, TouchableOpacity,StyleSheet, ActivityIndicator, Alert } from 'react-native'
 import React,{useState} from 'react'
 // import styles from '@/assets/styles/create.styles'
 import COLORS from '@/constants/constants'
@@ -24,19 +24,41 @@ const LogOut = () => {
         ])
     }
   return (
-    <TouchableOpacity onPress={confirmLogout} disabled={isLoading}>
+    <View style={styles.buttonContainer}>
+    <TouchableOpacity style={styles.button} onPress={confirmLogout} disabled={isLoading}>
               {
                 isLoading ? (
-                  <ActivityIndicator size={25} color={COLORS.white} />
+                  <ActivityIndicator size={25} color={COLORS.primary} />
                 ) : (
                   <>
-                    <Ionicons name="log-out-outline"  size={24} color={COLORS.white} />
-                    <Text >logout</Text>
+                    <Ionicons name="log-out-outline"  size={24} color={COLORS.primary} />
+                    <Text style={{fontSize:18,fontWeight:'semibold',color:COLORS.primary}}>logout</Text>
                   </>
                 )
               }
             </TouchableOpacity>
+            </View>
   )
 }
 
 export default LogOut
+
+const styles = StyleSheet.create({
+    button: {
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        gap:20,
+        borderRadius: 10,
+        borderWidth:2,
+        borderColor:COLORS.primary,
+        padding:10,
+        width:'50%'
+        
+    },
+    buttonContainer:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+    }
+})

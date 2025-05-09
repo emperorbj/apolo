@@ -51,9 +51,12 @@ export default function Home() {
       let geo = await Location.reverseGeocodeAsync(loc.coords);
       if (geo.length > 0 && geo[0].isoCountryCode) {
         setCountryCode(geo[0].isoCountryCode.toLowerCase());
+          console.log(geo)
       }
     })();
   }, []);
+
+
 
   const { user, login } = useAuthStore() as any
 
@@ -136,7 +139,7 @@ export default function Home() {
     renderItem={({ item }) => (
       <Image
         source={item}
-        style={{ width: '100%', height: '100%', borderRadius: 10 }}
+        style={{ width: '100%', height: '100%', borderRadius: 10}}
         contentFit="cover"
       />
     )}
@@ -151,8 +154,6 @@ export default function Home() {
             
           </View>
           {/* RECENT VIDEOS DISPLAY */}
-
-        
             <TopicCard 
             title="Textual Criticism"
             image="textual.jpg"
@@ -201,8 +202,8 @@ export default function Home() {
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.videoCardVertical} onPress={()=>router
-.push({ pathname: '/video-player', params: { url: item.youtubeUrl } })}>
+              <TouchableOpacity style={styles.videoCardVertical} 
+              onPress={()=>router.push({ pathname: '/video-player', params: { url: item.youtubeUrl } })}>
               
                 <Image
                   style={styles.thumbnailVertical}

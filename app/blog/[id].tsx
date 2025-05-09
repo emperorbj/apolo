@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,9 +9,12 @@ import { formatDate } from '@/lib/formatDate';
 import { getSingleBlog } from '@/api/myApi';
 import Loader from '@/components/Loader';
 import LottieView from 'lottie-react-native';
+import COLORS from '@/constants/constants';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const BlogDetails = () => {
-
+  const router = useRouter()
   const { id } = useLocalSearchParams()
 
   const { data, isLoading, isError } = useQuery({
@@ -20,6 +23,7 @@ const BlogDetails = () => {
   })
 
   if (isLoading) return <Loader />;
+
   if (isError) (
     <View>
       <View>
@@ -34,9 +38,32 @@ const BlogDetails = () => {
   )
 
   const blog = data?.blog
+
+  const handleNavigation = ()=> {
+    if(!blog) return;
+
+    const categoryLink = 
+    blog?.category === 'philosophical' ? 'evil' :
+    blog?.category === 'historical' ? 'history' :
+    blog?.category === 'textual' ? 'textual' :
+    blog?.category === 'scientific' ? 'science' : 'evil'
+
+    router.push(`/(tabs)/blogs/${categoryLink}`)
+  }
+
   return (
-    <LinearGradient colors={['#FFFFFF', '#D3D3D3']} style={styles.linear}>
+    <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={styles.linear}>
       <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.arrowContainer}>
+          <TouchableOpacity onPress={handleNavigation} >
+            <Ionicons style={styles.arrowButton} name="arrow-back-circle-outline" 
+            color={COLORS.primary} size={35}/>
+          </TouchableOpacity>
+          
+          <View>
+
+          </View>
+        </View>
         <Image
           source={{ uri: blog?.image }}
           style={styles.thumbnail}
@@ -79,13 +106,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: '#fff',
-    borderRadius: 12,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 5,
   },
   title: {
     fontSize: 24,
@@ -110,20 +131,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#6C757D',
   },
+  arrowButton:{
+    color:COLORS.primary
+  },
+  arrowContainer:{
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"space-between",
+    paddingHorizontal:10
+  }
 });
 
 const markdownStyles = {
   heading1: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#007AFF',
-    marginVertical: 8,
-  },
-  heading2: {
     fontSize: 18,
     fontWeight: '600',
     color: '#333',
     marginVertical: 6,
+  },
+  heading2: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#007AFF',
+    marginVertical: 8,
   },
   body: {
     fontSize: 16,

@@ -25,6 +25,7 @@ import { LinearGradient } from 'expo-linear-gradient'
     const [formData,setFormData] = useState({
         name:"",
         email:"",
+        phone:"",
         password:""
     })
 
@@ -73,8 +74,8 @@ import { LinearGradient } from 'expo-linear-gradient'
               {/* header */}
 
                 <View style={styles.header}>
-                  <Text style={styles.title}> Intelligentia 👨‍🎓</Text>
-                  <Text style={styles.subtitle}>we love books</Text>
+                  
+                  <Text style={styles.subtitle}>Register here</Text>
                 </View>
 
                 {/* fullname */}
@@ -105,6 +106,24 @@ import { LinearGradient } from 'expo-linear-gradient'
                                   placeholderTextColor={COLORS.placeholderText}
                                   placeholder="Email"
                                   onChangeText={(text) => handleChange('email', text)}
+                              />
+                          </View>
+                      </View>
+
+
+                      {/* phone number*/}
+                <View style={styles.inputGroup}>
+                          <Text style={styles.label}>Phone number</Text>
+                          <View style={styles.inputContainer}>
+                              <Ionicons name="phone-portrait-outline" size={20}
+                                  style={styles.inputIcon}
+                                  color={COLORS.primary} />
+                              <TextInput value={formData.phone}
+                                  style={styles.input}
+                                  keyboardType='phone-pad'
+                                  placeholderTextColor={COLORS.placeholderText}
+                                  placeholder="phone number"
+                                  onChangeText={(text) => handleChange('phone', text)}
                               />
                           </View>
                       </View>
