@@ -13,13 +13,13 @@ export const fetchVideos = async ()=> {
   };
 }
 
-export const fetchAllVideos = async (page = 1, limit = 6) => {
-  const response = await api.get(`/api/videos?page=${page}&limit=${limit}`);
+export const fetchAllVideos = async (page = 1, limit = 6,search="") => {
+  const response = await api.get(`/api/videos?page=${page}&limit=${limit}&search=${search}`);
   return response.data;
 };
 
-export const fetchBlogs = async (page=1 ,limit=6,category="")=>{
-  const response = await api.get(`/api/blogs?page=${page}&limit=${limit}&category=${category}`);
+export const fetchBlogs = async (page=1 ,limit=6,category="",search="")=>{
+  const response = await api.get(`/api/blogs?page=${page}&limit=${limit}&category=${category}&search=${search}`);
   return response?.data;
 }
 
@@ -27,3 +27,5 @@ export const getSingleBlog = async (id:string)=>{
   const response = await api.get(`/api/blogs/${id}`)
   return response?.data;
 }
+
+

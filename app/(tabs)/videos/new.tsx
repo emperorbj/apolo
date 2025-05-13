@@ -29,7 +29,8 @@ export default function NewVideos() {
                     contentContainerStyle={{ padding: 16 }}
                     numColumns={2}
                     renderItem={({ item }) => (
-                        <Pressable style={styles.videoCardVertical} onPress={() => router.push({ pathname: '/video-player', params: { url: item.youtubeUrl } })}>
+                        <Pressable style={styles.videoCardVertical}
+                        onPress={() => router.push({ pathname: '/video-player', params: { url: item.youtubeUrl } })}>
                             <Image
                                 style={styles.thumbnailVertical}
                                 source={{ uri: item?.thumbnailUrl }}

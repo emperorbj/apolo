@@ -20,7 +20,12 @@ interface MenuItem {
   icon: IoniconsName;
   
 }
-const ProfileMenu = () => {
+
+interface activeProps {
+  isVisible: boolean,
+  setIsVisible:(value:boolean)=> void
+}
+const ProfileMenu = ({isVisible,setIsVisible}:activeProps) => {
 
     const { user } = useAuthStore() as any
       const [street, setStreet] = useState<string | null>(null);
@@ -40,7 +45,7 @@ const ProfileMenu = () => {
           if (geo.length > 0 && geo[0].isoCountryCode) {
             setStreet(geo[0].street);
             setRegion(geo[0].region)
-            console.log(geo)
+            
           }
         })();
       }, []);
@@ -98,7 +103,7 @@ const ProfileMenu = () => {
         </TouchableOpacity>
       ))}
 
-      <LogOut/>
+      <LogOut isVisible={isVisible} setIsVisible={setIsVisible}/>
     </View>
   );
 };

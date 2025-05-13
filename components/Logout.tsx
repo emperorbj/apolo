@@ -1,27 +1,26 @@
-import { View, Text, TouchableOpacity,StyleSheet, ActivityIndicator, Alert } from 'react-native'
+import { View, Text, TouchableOpacity,StyleSheet,
+   ActivityIndicator, Alert, } from 'react-native'
 import React,{useState} from 'react'
 // import styles from '@/assets/styles/create.styles'
 import COLORS from '@/constants/constants'
 import { Ionicons } from '@expo/vector-icons'
 import { useAuthStore } from '@/store/authStore'
 
-const LogOut = () => {
+interface activeProps {
+  isVisible: boolean,
+  setIsVisible:(value:boolean)=> void
+}
+
+
+
+const LogOut = ({isVisible,setIsVisible}:activeProps) => {
     const [isLoading, setIsLoading] = useState(false)
+   
     const {logout} = useAuthStore() as any
 
 
     const confirmLogout = () => {
-        Alert.alert("Are you sure?", "You want to logout", [
-            {
-                text: "Cancel",
-                style: "cancel",
-            },
-            {
-                text: "OK",
-                style: "destructive",
-                onPress: () => logout(),
-            },
-        ])
+        setIsVisible(true)
     }
   return (
     <View style={styles.buttonContainer}>

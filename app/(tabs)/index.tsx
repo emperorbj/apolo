@@ -22,6 +22,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import TopicCard from "@/components/TopicCard";
 import COLORS from "@/constants/constants";
 import { useRouter } from 'expo-router';
+import { TextInput } from "react-native-gesture-handler";
 
 
 const { width } = Dimensions.get("window");
@@ -51,7 +52,7 @@ export default function Home() {
       let geo = await Location.reverseGeocodeAsync(loc.coords);
       if (geo.length > 0 && geo[0].isoCountryCode) {
         setCountryCode(geo[0].isoCountryCode.toLowerCase());
-          console.log(geo)
+          
       }
     })();
   }, []);
@@ -116,12 +117,15 @@ export default function Home() {
           </View>
           
         </View>
-        <View  style={styles.headerContainer}>
+        <TouchableOpacity
+        onPress={()=>router.push('/search')}
+          style={styles.headerContainer}>
           <View></View>
-          <Pressable style={{backgroundColor: COLORS.primary ,padding:5, alignItems:"center",borderRadius:50}}>
+          <Pressable
+           style={{backgroundColor: COLORS.primary ,padding:5, alignItems:"center",borderRadius:50}}>
             <Ionicons name="search-outline" size={25} color={"white"} />
           </Pressable>
-        </View>
+        </TouchableOpacity>
 
         {/* <View>
         <LogOut />

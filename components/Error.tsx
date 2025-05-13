@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import LottieView from 'lottie-react-native';
-const Error = () => {
+const Error = ({bError}:any) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <View>
@@ -11,7 +11,10 @@ const Error = () => {
         loop={true}
         style={{ width: 200, height: 150 }}
       />
-      <Text>Something went wrong...</Text>
+      <Text>{bError}</Text>
+      {/* <Text>{bErr}</Text>
+      <Text>{vError}</Text>
+      <Text>{vErr}</Text> */}
     </View>
   </View>
   )
